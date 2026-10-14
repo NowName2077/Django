@@ -1,0 +1,16 @@
+{% extends 'myapp/base.html' %}
+{% block titel%}Главная страница{% endblock %}
+{% block header %}Главная страница{% endblock %}
+{% block content%}
+<section>
+    <ul>
+        {% for student in students_all %}
+        <li>
+            {{student.last_name}}
+            {{student.first_name}}
+            {{student.group.name}}
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock%}
