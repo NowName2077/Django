@@ -1,0 +1,85 @@
+/* Сброс базовых отступов */
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: #f4f4f4;
+
+    /* Страница минимум на всю высоту окна */
+    min-height: 100vh;
+
+    /* header / main / footer */
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #7c64ef;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Основная часть страницы */
+main {
+    padding: 20px;
+    display: flex;
+    box-sizing: border-box;
+}
+
+/* Боковое меню */
+nav {
+    width: 200px;
+    background-color: #eee;
+    padding: 20px;
+    margin-right: 20px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    margin-bottom: 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #ddd;
+}
+
+/* Контентная часть */
+section {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Подвал */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+}
