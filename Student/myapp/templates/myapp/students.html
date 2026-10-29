@@ -1,11 +1,14 @@
 {% extends 'myapp/base.html' %}
-{% block titel%}Студенты{% endblock %}
+{% block title %}Студенты{% endblock %}
 {% block header %}Студенты{% endblock %}
-{% block content%}
-    <ul>
-        <li><a href="{% url 'GetStudents' %}">Получение объектов — get(), first(), count()</a></li>
-        <li><a href="{% url 'FilterStudents' %}">Фильтрация — filter(), exclude(), Q()</a></li>
-        <li><a href="{% url 'SortStudents' %}">Сортировка — order_by(), values()</a></li>
-        <li><a href="{% url 'QueryStudents' %}">Связи, агрегация и SQL</a></li>
-    </ul>
+{% block content %}
+<div class="tiles">
+
+        <li><a class="tile" href="{% url 'GetStudents' %}"><h2>Получение объектов</h2></a></li>
+        <li><a class="tile" href="{% url 'FilterStudents' %}"><h2>Фильтрация</h2></a></li>
+        <li><a class="tile" href="{% url 'SortStudents' %}"><h2>Сортировка</h2></a></li>
+        <li><a class="tile" href="{% url 'QueryStudents' %}"><h2>Запросы</h2></a></li>
+        <li><a class="tile" href="{% url 'TaskStudents' %}"><h2>Задание</h2></a></li>
+
+</div>
 {% endblock%}

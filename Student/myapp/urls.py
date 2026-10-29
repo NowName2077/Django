@@ -8,4 +8,5 @@ urlpatterns = [
     path('students/filter/', views.filter_students, name='FilterStudents'),
     path('students/sort/', views.sort_students, name='SortStudents'),
     path('students/query/', views.query_students, name='QueryStudents'),
+    path('students/tasks/', views.task_students, name='TaskStudents')
 ]

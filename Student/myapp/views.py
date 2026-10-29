@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Student, Group
+from datetime import date
+from .models import Student, Group, Discipline
 from django.db.models import Q, Count
 # Create your views here.
 def home(request):
@@ -146,3 +147,46 @@ def query_students(request):
         "students_with_prefetch": students_with_prefetch,
     }
     return render(request, 'myapp/students/QueryStudents.html', context)
+
+def task_students(request):
+    discipline_name = request.GET.get("discipline", "Языки программирования")
+
+    task1 = Student.objects.filter(
+        birthday__range=(date(2026, 1, 1), date(2026, 6, 1))
+    ).order_by("-birthday")
+
+    # 2. Изучают дисциплину и получили за неё «2»
+    task2 = Student.objects.filter(
+        studentdiscipline__discipline__name=discipline_name,
+        studentdiscipline__mark__value="2",
+    ).select_related("group").order_by("last_name", "first_name", "middle_name")
+
+    # 3. Количество студентов на каждой дисциплине
+    task3 = Discipline.objects.annotate(
+        student_count=Count("students")
+    ).order_by("name")
+
+    # 4. Есть хотя бы одна «2», но нет ни одной «5»
+    task4 = (
+        Student.objects
+        .filter(studentdiscipline__mark__value="2")
+        .exclude(studentdiscipline__mark__value="5")
+        .select_related("group")
+        .distinct()
+        .order_by("last_name", "first_name")
+    )
+
+    # 5. Изучают больше трёх дисциплин
+    task5 = (
+        Student.objects
+        .annotate(discipline_count=Count("disciplines", distinct=True))
+        .filter(discipline_count__gt=3)
+        .order_by("last_name", "first_name")
+    )
+
+    context = {
+        "discipline_name": discipline_name,
+        "task1": task1, "task2": task2, "task3": task3,
+        "task4": task4, "task5": task5,
+    }
+    return render(request, "myapp/students/TaskStudents.html", context)

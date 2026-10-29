@@ -1,0 +1,9 @@
+{% with page=request.resolver_match.url_name %}
+<nav class="tabs" aria-label="Разделы">
+    <a href="{% url 'GetStudents' %}"{% if page == 'GetStudents' %} aria-current="page"{% endif %}>Получение</a>
+    <a href="{% url 'FilterStudents' %}"{% if page == 'FilterStudents' %} aria-current="page"{% endif %}>Фильтрация</a>
+    <a href="{% url 'SortStudents' %}"{% if page == 'SortStudents' %} aria-current="page"{% endif %}>Сортировка</a>
+    <a href="{% url 'QueryStudents' %}"{% if page == 'QueryStudents' %} aria-current="page"{% endif %}>Запросы</a>
+    <a href="{% url 'TaskStudents' %}"{% if page == 'TaskStudents' %} aria-current="page"{% endif %}>Задания</a>
+</nav>
+{% endwith %}

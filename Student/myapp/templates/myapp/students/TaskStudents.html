@@ -1,0 +1,113 @@
+{% extends 'myapp/base.html' %}
+{% block title %}Задания по запросам{% endblock %}
+{% block header %}Задания по запросам{% endblock %}
+{% block content %}
+{% include 'myapp/partials/students_tabs.html' %}
+
+<section class="block">
+    <div class="block__head">
+        <h2>1. Родились с 01.01.2026 по 01.06.2026</h2>
+    </div>
+    <div class="block__body">
+        {% if task1 %}
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Студент</th><th>Дата рождения</th></tr></thead>
+                <tbody>
+                {% for student in task1 %}
+                    <tr>
+                        <td>{{ student.last_name }} {{ student.first_name }} {{ student.middle_name }}</td>
+                        <td>{{ student.birthday|date:"d.m.Y" }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}<p class="empty">В этом периоде студенты не родились.</p>{% endif %}
+        <p class="note">Границы входят в период. Сначала самые младшие, то есть дата рождения по убыванию.</p>
+    </div>
+</section>
+
+<section class="block">
+    <div class="block__head">
+        <h2>2. Дисциплина «{{ discipline_name }}», оценка 2</h2>
+    </div>
+    <div class="block__body">
+        {% if task2 %}
+        <ul class="people">
+            {% for student in task2 %}
+            <li><span>{{ student.last_name }} {{ student.first_name }} {{ student.middle_name }}</span><span class="tag">{{ student.group.name }}</span></li>
+            {% endfor %}
+        </ul>
+        {% else %}<p class="empty">Таких студентов нет.</p>{% endif %}
+        <p class="note">Оба условия стоят в одном <code>filter()</code>, поэтому относятся к одной и той же записи об изучении дисциплины. Другую дисциплину можно выбрать так: <code>?discipline=Название</code>.</p>
+    </div>
+</section>
+
+<section class="block">
+    <div class="block__head">
+        <h2>3. Студентов на каждой дисциплине</h2>
+    </div>
+    <div class="block__body">
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Дисциплина</th><th>Семестр</th><th class="num">Студентов</th></tr></thead>
+                <tbody>
+                {% for discipline in task3 %}
+                    <tr>
+                        <td>{{ discipline.name }}</td>
+                        <td>{{ discipline.semester }}</td>
+                        <td class="num">{{ discipline.student_count }}</td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="3" class="empty">Дисциплин нет.</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="block__head">
+        <h2>4. Есть оценка «2», но нет «5»</h2>
+    </div>
+    <div class="block__body">
+        {% if task4 %}
+        <ul class="people">
+            {% for student in task4 %}
+            <li>
+                <span>{{ student.last_name }} {{ student.first_name }} {{ student.middle_name }}</span>
+                <span class="tag">{{ student.group.name }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="empty">Таких студентов нет.</p>
+        {% endif %}
+    </div>
+</section>
+
+<section class="block">
+    <div class="block__head">
+        <h2>5. Изучают больше трёх дисциплин</h2>
+    </div>
+    <div class="block__body">
+        {% if task5 %}
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Студент</th><th class="num">Дисциплин</th></tr></thead>
+                <tbody>
+                {% for student in task5 %}
+                    <tr>
+                        <td>{{ student.last_name }} {{ student.first_name }}</td>
+                        <td class="num">{{ student.discipline_count }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}<p class="empty">Таких студентов нет.</p>{% endif %}
+    </div>
+</section>
+{% endblock %}

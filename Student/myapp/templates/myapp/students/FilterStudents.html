@@ -1,8 +1,12 @@
 ﻿{% extends 'myapp/base.html' %}
-{% block titel%}Главная страница{% endblock %}
-{% block header %}Главная страница{% endblock %}
-{% block content%}
-    <section>
+{% block title %}Фильтрация{% endblock %}
+{% block header %}Фильтрация{% endblock %}
+{% block content %}
+{% include 'myapp/partials/students_tabs.html' %}
+
+<section class="block">
+    <div class="block__head">
+        <h2>Студенты группы {{ student.group.name }}</h2>
         <ul>
             {% for student in students_filter %}
                 <li>
@@ -14,9 +18,12 @@
                 <li>Студентов этой группы нет</li>
             {% endfor %}
         </ul>
-    </section>
+</section>
 
-    <section>
+<section class="block">
+    <div class="block__head">
+        <h2>Все, кроме группы {{ student.group.name }}</h2>
+    </div>
         <ul>
             {% for student in students_exclude %}
                 <li>
@@ -28,9 +35,12 @@
                 <li>Студентов нет</li>
             {% endfor %}
         </ul>
-    </section>
+</section>
 
-    <section>
+<section class="block">
+    <div class="block__head">
+        <h2>Фамилия содержит «ов»</h2>
+    </div>
         <ul>
             {% for student in students_contains %}
                 <li>
@@ -41,9 +51,12 @@
                 <li>Студенты не найдены</li>
             {% endfor %}
         </ul>
-    </section>
+</section>
 
-    <section>
+<section class="block">
+    <div class="block__head">
+        <h2>Получаем студентов сразу из нескольких групп.</h2>
+    </div>
         <ul>
             {% for student in students_in %}
                 <li>
@@ -55,10 +68,13 @@
                 <li>Студентов нет</li>
             {% endfor %}
         </ul>
-    </section>
+</section>
 
-    <section>
-        <ul>
+<section class="block">
+    <div class="block__head">
+        <h2>Сложные условия</h2>
+    </div>
+<ul>
             {% for student in students_q %}
                 <li>
                     {{ student.last_name }}
@@ -69,5 +85,5 @@
                 <li>Студентов нет</li>
             {% endfor %}
         </ul>
-    </section>
-{% endblock%}
+</section>
+{% endblock %}

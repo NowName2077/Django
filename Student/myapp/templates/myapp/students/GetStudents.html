@@ -1,66 +1,71 @@
 ﻿{% extends 'myapp/base.html' %}
-{% block titel%}Главная страница{% endblock %}
-{% block header %}Главная страница{% endblock %}
-{% block content%}
-<section>
-    <ul>
-        {% for student in students_all %}
-        <li>
-            {{student.last_name}}
-            {{student.first_name}}
-            {{student.group.name}}
-        </li>
-        {% endfor %}
-    </ul>
+{% block title %}Получение объектов{% endblock %}
+{% block header %}Получение объектов{% endblock %}
+{% block content %}
+{% include 'myapp/partials/students_tabs.html' %}
+<section class="block">
+    <div class="block__head">
+        <h2>Все студенты</h2>
+    </div>
+    <div class="block__body">
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Фамилия</th><th>Имя</th><th>Группа</th></tr></thead>
+                <tbody>
+                {% for student in students_all %}
+                    <tr>
+                        <td>{{ student.last_name }}</td>
+                        <td>{{ student.first_name }}</td>
+                        <td><span class="tag">{{ student.group.name }}</span></td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="3" class="empty">В базе пока нет студентов.</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </section>
 
-    <section>
+<section class="block">
+    <div class="block__head">
+        <h2>Один студент</h2>
+    </div>
+    <div class="block__body">
         {% if student_get %}
-            <p>
-                Найден студент:
-                <strong>
-                    {{ student_get.last_name }}
-                    {{ student_get.first_name }}
-                    {{ student_get.middle_name }}
-                </strong>
-            </p>
+            <p class="person">{{ student_get.last_name }} {{ student_get.first_name }} {{ student_get.middle_name }}</p>
         {% else %}
-            <p>
-                Студент с id = 1 не найден.
-            </p>
+            <p class="empty">Студента с id = 1 нет в базе.</p>
         {% endif %}
+    </div>
+</section>
 
-        <p>
-            <code>DoesNotExist</code>.
-        </p>
+<section class="block">
+    <div class="block__head">
+        <h2>Первый и последний</h2>
+    </div>
+    <div class="block__body pair">
+        <div>
+            <h3>Первый</h3>
+            {% if student_first %}
+                <p class="person">{{ student_first.last_name }} {{ student_first.first_name }}</p>
+            {% else %}<p class="empty">Нет данных</p>{% endif %}
+        </div>
+        <div>
+            <h3>Последний</h3>
+            {% if student_last %}
+                <p class="person">{{ student_last.last_name }} {{ student_last.first_name }}</p>
+            {% else %}<p class="empty">Нет данных</p>{% endif %}
+        </div>
+    </div>
+</section>
 
-        <p>
-            <code>MultipleObjectsReturned</code>.
-        </p>
-    </section>
-
-    <section>
-        {% if student_first %}
-            <p>
-                <strong>Первый:</strong>
-                {{ student_first.last_name }}
-                {{ student_first.first_name }}
-            </p>
-        {% endif %}
-
-        {% if student_last %}
-            <p>
-                <strong>Последний:</strong>
-                {{ student_last.last_name }}
-                {{ student_last.first_name }}
-            </p>
-        {% endif %}
-    </section>
-
-    <section>
-        <p>
-            Всего студентов:
-            <strong>{{ students_count }}</strong>
-        </p>
-    </section>
-{% endblock%}
+<section class="block">
+    <div class="block__head">
+        <h2>Количество</h2>
+    </div>
+    <div class="block__body">
+        <p class="count">{{ students_count }} <small>студентов всего</small></p>
+    </div>
+</section>
+{% endblock %}
