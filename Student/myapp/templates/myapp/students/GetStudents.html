@@ -1,0 +1,66 @@
+﻿{% extends 'myapp/base.html' %}
+{% block titel%}Главная страница{% endblock %}
+{% block header %}Главная страница{% endblock %}
+{% block content%}
+<section>
+    <ul>
+        {% for student in students_all %}
+        <li>
+            {{student.last_name}}
+            {{student.first_name}}
+            {{student.group.name}}
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+
+    <section>
+        {% if student_get %}
+            <p>
+                Найден студент:
+                <strong>
+                    {{ student_get.last_name }}
+                    {{ student_get.first_name }}
+                    {{ student_get.middle_name }}
+                </strong>
+            </p>
+        {% else %}
+            <p>
+                Студент с id = 1 не найден.
+            </p>
+        {% endif %}
+
+        <p>
+            <code>DoesNotExist</code>.
+        </p>
+
+        <p>
+            <code>MultipleObjectsReturned</code>.
+        </p>
+    </section>
+
+    <section>
+        {% if student_first %}
+            <p>
+                <strong>Первый:</strong>
+                {{ student_first.last_name }}
+                {{ student_first.first_name }}
+            </p>
+        {% endif %}
+
+        {% if student_last %}
+            <p>
+                <strong>Последний:</strong>
+                {{ student_last.last_name }}
+                {{ student_last.first_name }}
+            </p>
+        {% endif %}
+    </section>
+
+    <section>
+        <p>
+            Всего студентов:
+            <strong>{{ students_count }}</strong>
+        </p>
+    </section>
+{% endblock%}

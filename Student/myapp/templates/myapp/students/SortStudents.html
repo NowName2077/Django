@@ -1,0 +1,44 @@
+﻿{% extends 'myapp/base.html' %}
+{% block titel%}Главная страница{% endblock %}
+{% block header %}Главная страница{% endblock %}
+{% block content%}
+<section>
+        <ol>
+            {% for student in students_ordered %}
+                <li>
+                    {{ student.last_name }}
+                    {{ student.first_name }}
+                </li>
+            {% endfor %}
+        </ol>
+    </section>
+
+    <section>
+        <table border="1">
+            <tr>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Email</th>
+            </tr>
+
+            {% for student in students_values %}
+                <tr>
+                    <td>{{ student.last_name }}</td>
+                    <td>{{ student.first_name }}</td>
+                    <td>{{ student.student_email }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </section>
+
+    <section>
+        <ul>
+            {% for last_name, first_name in students_values_list %}
+                <li>
+                    {{ last_name }}
+                    {{ first_name }}
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

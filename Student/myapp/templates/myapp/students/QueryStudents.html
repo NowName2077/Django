@@ -1,0 +1,182 @@
+﻿{% extends 'myapp/base.html' %}
+{% block titel%}Главная страница{% endblock %}
+{% block header %}Главная страница{% endblock %}
+{% block content%}
+<section>
+        <table border="1">
+            <tr>
+                <th>Студент</th>
+                <th>Группа</th>
+            </tr>
+
+            {% for student in students_select_related %}
+                <tr>
+                    <td>
+                        {{ student.last_name }}
+                        {{ student.first_name }}
+                    </td>
+
+                    <td>
+                        {{ student.group.name }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </section>
+
+    <section>
+        {% for student in students_prefetch %}
+
+            <h4>
+                {{ student.last_name }}
+                {{ student.first_name }}
+            </h4>
+
+            <ul>
+                {% for discipline in student.disciplines.all %}
+                    <li>
+                        {{ discipline.name }}
+                    </li>
+                {% empty %}
+                    <li>Дисциплин нет</li>
+                {% endfor %}
+            </ul>
+
+        {% endfor %}
+    </section>
+
+    <section>
+        {% for group in groups %}
+
+            <h4>Группа {{ group.name }}</h4>
+
+            <ul>
+                {% for student in group.students.all %}
+                    <li>
+                        {{ student.last_name }}
+                        {{ student.first_name }}
+                    </li>
+                {% empty %}
+                    <li>Студентов нет</li>
+                {% endfor %}
+            </ul>
+
+        {% endfor %}
+    </section>
+
+    <section>
+        {% for student in students_disciplines %}
+
+            <h4>
+                {{ student.last_name }}
+                {{ student.first_name }}
+            </h4>
+
+            <ul>
+                {% for discipline in student.disciplines.all %}
+                    <li>
+                        {{ discipline.name }}
+                        — {{ discipline.semester }} семестр
+                    </li>
+                {% empty %}
+                    <li>Дисциплин нет</li>
+                {% endfor %}
+            </ul>
+
+        {% endfor %}
+    </section>
+
+    <section>
+        <table border="1">
+            <tr>
+                <th>Студент</th>
+                <th>Количество дисциплин</th>
+            </tr>
+
+            {% for student in students_annotated %}
+                <tr>
+                    <td>
+                        {{ student.last_name }}
+                        {{ student.first_name }}
+                    </td>
+
+                    <td>
+                        {{ student.discipline_count }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </section>
+
+    <section>
+        <p>
+            Всего студентов:
+            <strong>{{ students_aggregate.total }}</strong>
+        </p>
+    </section>
+
+    <section>
+        <ol>
+            {% for student in students_chain %}
+                <li>
+                    {{ student.last_name }}
+                    {{ student.first_name }}
+                    — {{ student.group.name }}
+                </li>
+            {% empty %}
+                <li>Студентов нет</li>
+            {% endfor %}
+        </ol>
+    </section>
+
+    <section>
+        <pre>
+            {{ students_sql }}
+        </pre>
+    </section>
+
+
+    <section>
+
+        {% for student in students_without_prefetch %}
+
+            <h4>
+                {{ student.last_name }}
+                {{ student.first_name }}
+            </h4>
+
+            <ul>
+                {% for discipline in student.disciplines.all %}
+                    <li>
+                        {{ discipline.name }}
+                    </li>
+                {% empty %}
+                    <li>Дисциплин нет</li>
+                {% endfor %}
+            </ul>
+
+        {% endfor %}
+    </section>
+
+
+    <section>
+        {% for student in students_with_prefetch %}
+
+            <h4>
+                {{ student.last_name }}
+                {{ student.first_name }}
+            </h4>
+
+            <ul>
+                {% for discipline in student.disciplines.all %}
+                    <li>
+                        {{ discipline.name }}
+                    </li>
+                {% empty %}
+                    <li>Дисциплин нет</li>
+                {% endfor %}
+            </ul>
+
+        {% endfor %}
+    </section>
+{% endblock%}

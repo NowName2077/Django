@@ -1,0 +1,73 @@
+﻿{% extends 'myapp/base.html' %}
+{% block titel%}Главная страница{% endblock %}
+{% block header %}Главная страница{% endblock %}
+{% block content%}
+    <section>
+        <ul>
+            {% for student in students_filter %}
+                <li>
+                    {{ student.last_name }}
+                    {{ student.first_name }}
+                    — {{ student.group.name }}
+                </li>
+            {% empty %}
+                <li>Студентов этой группы нет</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <ul>
+            {% for student in students_exclude %}
+                <li>
+                    {{ student.last_name }}
+                    {{ student.first_name }}
+                    — {{ student.group.name }}
+                </li>
+            {% empty %}
+                <li>Студентов нет</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <ul>
+            {% for student in students_contains %}
+                <li>
+                    {{ student.last_name }}
+                    {{ student.first_name }}
+                </li>
+            {% empty %}
+                <li>Студенты не найдены</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <ul>
+            {% for student in students_in %}
+                <li>
+                    {{ student.last_name }}
+                    {{ student.first_name }}
+                    — {{ student.group.name }}
+                </li>
+            {% empty %}
+                <li>Студентов нет</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <ul>
+            {% for student in students_q %}
+                <li>
+                    {{ student.last_name }}
+                    {{ student.first_name }}
+                    — {{ student.group.name }}
+                </li>
+            {% empty %}
+                <li>Студентов нет</li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock%}

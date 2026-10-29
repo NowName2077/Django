@@ -12,7 +12,7 @@ class Student(models.Model):
     middle_name = models.CharField(max_length=100, blank=True)
     email = models.CharField(max_length=100)
     birthday = models.DateField()
-    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='students')
     def __str__(self):
         return str('Student' + self.last_name + self.first_name)
 

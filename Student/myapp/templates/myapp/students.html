@@ -1,16 +1,11 @@
 {% extends 'myapp/base.html' %}
-{% block titel%}Главная страница{% endblock %}
-{% block header %}Главная страница{% endblock %}
+{% block titel%}Студенты{% endblock %}
+{% block header %}Студенты{% endblock %}
 {% block content%}
-<section>
     <ul>
-        {% for student in students_all %}
-        <li>
-            {{student.last_name}}
-            {{student.first_name}}
-            {{student.group.name}}
-        </li>
-        {% endfor %}
+        <li><a href="{% url 'GetStudents' %}">Получение объектов — get(), first(), count()</a></li>
+        <li><a href="{% url 'FilterStudents' %}">Фильтрация — filter(), exclude(), Q()</a></li>
+        <li><a href="{% url 'SortStudents' %}">Сортировка — order_by(), values()</a></li>
+        <li><a href="{% url 'QueryStudents' %}">Связи, агрегация и SQL</a></li>
     </ul>
-</section>
 {% endblock%}
